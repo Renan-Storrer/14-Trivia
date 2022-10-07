@@ -44,7 +44,9 @@ class Login extends React.Component {
   render() {
     const { disableBtn } = this.state;
     return (
-      <div>
+      <div
+        data-testid="login-div"
+      >
         <label htmlFor="name">
           <input
             type="text"
