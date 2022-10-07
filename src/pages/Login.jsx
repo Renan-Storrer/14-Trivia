@@ -1,4 +1,7 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import requestApi from '../redux/actions';
 
 class Login extends React.Component {
   state = {
@@ -24,6 +27,15 @@ class Login extends React.Component {
     });
   };
 
+  handleClick = async () => {
+    const { returnToken, history } = this.props;
+    await returnToken();
+    const { token } = this.props;
+    console.log(token);
+    localStorage.setItem('token', token);
+    history.push('/game');
+  };
+
   render() {
     const { disableBtn } = this.state;
     return (
@@ -46,7 +58,13 @@ class Login extends React.Component {
             data-testid="input-gravatar-email"
           />
         </label>
-        <button type="button" data-testid="btn-play" disabled={ disableBtn }>
+
+        <button
+          type="button"
+          data-testid="btn-play"
+          disabled={ disableBtn }
+          onClick={ this.handleClick }
+        >
           Play
         </button>
       </div>
@@ -54,4 +72,16 @@ class Login extends React.Component {
   }
 }
 
-export default Login;
+Login.propTypes = {
+  returnToken: PropTypes.func,
+}.isRequired;
+
+const mapDispatchToProps = (dispatch) => ({
+  returnToken: () => dispatch(requestApi()),
+});
+
+const mapStateToProps = (state) => ({
+  token: state.gameReducer.token,
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
