@@ -27,6 +27,11 @@ class Login extends React.Component {
     });
   };
 
+  settingsBtn = () => {
+    const { history } = this.props;
+    history.push('/settings');
+  };
+
   handleClick = async () => {
     const { returnToken, history } = this.props;
     await returnToken();
@@ -58,15 +63,24 @@ class Login extends React.Component {
             data-testid="input-gravatar-email"
           />
         </label>
+        <div>
+          <button
+            type="button"
+            data-testid="btn-play"
+            disabled={ disableBtn }
+            onClick={ this.handleClick }
+          >
+            Play
+          </button>
+          <button
+            type="button"
+            data-testid="btn-settings"
+            onClick={ this.settingsBtn }
+          >
+            Settings
+          </button>
+        </div>
 
-        <button
-          type="button"
-          data-testid="btn-play"
-          disabled={ disableBtn }
-          onClick={ this.handleClick }
-        >
-          Play
-        </button>
       </div>
     );
   }
