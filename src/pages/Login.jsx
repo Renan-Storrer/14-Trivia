@@ -27,6 +27,11 @@ class Login extends React.Component {
     });
   };
 
+  settingsBtn = () => {
+    const { history } = this.props;
+    history.push('/settings');
+  };
+
   handleClick = async () => {
     const { returnToken, history, returnNomeEmail } = this.props;
     const { name, email } = this.state;
@@ -40,7 +45,9 @@ class Login extends React.Component {
   render() {
     const { disableBtn } = this.state;
     return (
-      <div>
+      <div
+        data-testid="login-div"
+      >
         <label htmlFor="name">
           <input
             type="text"
@@ -59,15 +66,24 @@ class Login extends React.Component {
             data-testid="input-gravatar-email"
           />
         </label>
+        <div>
+          <button
+            type="button"
+            data-testid="btn-play"
+            disabled={ disableBtn }
+            onClick={ this.handleClick }
+          >
+            Play
+          </button>
+          <button
+            type="button"
+            data-testid="btn-settings"
+            onClick={ this.settingsBtn }
+          >
+            Settings
+          </button>
+        </div>
 
-        <button
-          type="button"
-          data-testid="btn-play"
-          disabled={ disableBtn }
-          onClick={ this.handleClick }
-        >
-          Play
-        </button>
       </div>
     );
   }
