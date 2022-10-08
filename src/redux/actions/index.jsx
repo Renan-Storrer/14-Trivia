@@ -1,6 +1,6 @@
-import REQUEST_API from './actionsTypes';
+import { REQUEST_API, ADD_NAME_EMAIL } from './actionsTypes';
 
-const requestApi = () => async (dispatch) => {
+export const requestApi = () => async (dispatch) => {
   const url = 'https://opentdb.com/api_token.php?command=request';
   return fetch(url)
     .then((response) => response.json())
@@ -11,4 +11,10 @@ const requestApi = () => async (dispatch) => {
     });
 };
 
-export default requestApi;
+export const addNomeEmail = (nome, email) => ({
+  type: ADD_NAME_EMAIL,
+  payload: {
+    name: nome,
+    email,
+  },
+});

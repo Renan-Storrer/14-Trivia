@@ -1,4 +1,4 @@
-import REQUEST_API from '../actions/actionsTypes';
+import { REQUEST_API } from '../actions/actionsTypes';
 
 const INITIAL_STATE = {
   token: '',
