@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import requestApi from '../redux/actions';
+import { requestApi, addNomeEmail } from '../redux/actions';
 
 class Login extends React.Component {
   state = {
@@ -33,12 +33,13 @@ class Login extends React.Component {
   };
 
   handleClick = async () => {
-    const { returnToken, history } = this.props;
+    const { returnToken, history, returnNomeEmail } = this.props;
+    const { name, email } = this.state;
     await returnToken();
     const { token } = this.props;
-    console.log(token);
     localStorage.setItem('token', token);
     history.push('/game');
+    returnNomeEmail(name, email);
   };
 
   render() {
@@ -94,6 +95,7 @@ Login.propTypes = {
 
 const mapDispatchToProps = (dispatch) => ({
   returnToken: () => dispatch(requestApi()),
+  returnNomeEmail: (nome, email) => dispatch(addNomeEmail(nome, email)),
 });
 
 const mapStateToProps = (state) => ({
