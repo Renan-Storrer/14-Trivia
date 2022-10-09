@@ -62,7 +62,7 @@ class Main extends React.Component {
     );
   }
 }
-
+// comentáro
 Main.propTypes = {
   history: PropTypes.object,
 }.isRequered;
