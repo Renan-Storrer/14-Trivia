@@ -9,7 +9,7 @@ class Question extends React.Component {
     if (question.type !== 'boolean') {
       const alternatives = [question.correct_answer, ...question.incorrect_answers];
       console.log('alternativas antes:', alternatives);
-      return alternatives.sort();
+      return alternatives.sort(() => Math.random() - noMagicNumber);
       // const limit = 3;
       // const randomPosition = Math.floor(Math.random() * limit);
 
