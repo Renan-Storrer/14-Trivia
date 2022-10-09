@@ -40,6 +40,21 @@ class Login extends React.Component {
     localStorage.setItem('token', token);
     history.push('/game');
     returnNomeEmail(name, email);
+
+    const verifyToken = 3;
+
+    const data = await this.fetchQuestions();
+    if (data.response_code === verifyToken) {
+      history.push('/');
+    }
+  };
+
+  fetchQuestions = async () => {
+    const token = localStorage.getItem('token');
+    const endPoint = `https://opentdb.com/api.php?amount=5&token=${token}`;
+    const response = await fetch(endPoint);
+    const data = await response.json();
+    return data;
   };
 
   render() {
