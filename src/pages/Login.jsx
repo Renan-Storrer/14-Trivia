@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import fetchQuestions from '../services/fetchQuestions';
 import { requestApi, addNomeEmail } from '../redux/actions';
 
 class Login extends React.Component {
@@ -43,18 +44,10 @@ class Login extends React.Component {
 
     const verifyToken = 3;
 
-    const data = await this.fetchQuestions();
+    const data = await fetchQuestions();
     if (data.response_code === verifyToken) {
       history.push('/');
     }
-  };
-
-  fetchQuestions = async () => {
-    const token = localStorage.getItem('token');
-    const endPoint = `https://opentdb.com/api.php?amount=5&token=${token}`;
-    const response = await fetch(endPoint);
-    const data = await response.json();
-    return data;
   };
 
   render() {
