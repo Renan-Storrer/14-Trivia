@@ -4,7 +4,6 @@ import Question from './Question';
 
 class Main extends React.Component {
   state = {
-    id: 0,
     questions: [],
     isLoading: true,
   };
@@ -31,25 +30,14 @@ class Main extends React.Component {
     return data;
   };
 
-  btnNext = () => {
-    const { id } = this.state;
-    const limit = 4;
-    if (id < limit) {
-      this.setState({ id: id + 1 });
-    } else {
-      this.setState({ id: 0 });
-    }
-  };
-
   render() {
-    const { questions, id, isLoading } = this.state;
+    const { questions, isLoading } = this.state;
     // console.log(questions);
     return (
       (!isLoading)
         ? (
           <main>
-            <Question question={ questions[id] } />
-            <button type="button" onClick={ this.btnNext }>Next</button>
+            <Question questions={ questions } />
           </main>
         )
         : (
