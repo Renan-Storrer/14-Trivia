@@ -21,7 +21,7 @@ describe('Testa a página de login', () => {
     expect(btn).toBeEnabled();
     userEvent.click(btn);
     await waitFor(() => {
-      expect(history.location.pathname).toBe('/')
+      expect(history.location.pathname).toBe('/game')
     });
   });
 
