@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import createGravatarImage from '../services/getUserAvatar';
 import Header from '../components/Header';
-import '../css/feedback.css';
+// import '../css/feedback.css';
 
 class Feedback extends React.Component {
   hitComparator = (assertions) => {
@@ -33,6 +33,9 @@ class Feedback extends React.Component {
           {/* <p data-testid="header-score">{score}</p> */}
           <p data-testid="feedback-total-score">{score}</p>
           <p data-testid="feedback-total-question">{assertions}</p>
+          <button type="button" data-testid="btn-play-again" onC>Play Again</button>
+          <br />
+          <button type="button" data-testid="btn-ranking">Ranking</button>
         </main>
       </>
     );
