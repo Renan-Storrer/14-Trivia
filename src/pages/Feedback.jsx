@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import './css/feedback.css';
+import '../css/feedback.css';
 
 class Feedback extends React.Component {
   hitComparator = (score) => {
@@ -37,8 +37,8 @@ Feedback.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  nome: state.playerReducer.name,
-  score: state.playerReducer.score,
+  nome: state.player.name,
+  score: state.player.score,
 });
 
 export default connect(mapStateToProps)(Feedback);

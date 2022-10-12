@@ -30,12 +30,16 @@ class Login extends React.Component {
 
   settingsBtn = () => {
     const { history } = this.props;
+    console.log('settingsBtn history', history);
     history.push('/settings');
   };
 
   handleClick = async (event) => {
     event.preventDefault();
     const { returnToken, history, returnNomeEmail } = this.props;
+
+    console.log('handleClick history', history);
+
     const { name, email } = this.state;
     await returnToken();
     const { token } = this.props;
