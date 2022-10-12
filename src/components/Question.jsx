@@ -1,7 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import fetchQuestions from '../services/fetchQuestions';
 import '../css/answers.css';
+import { addScore } from '../redux/actions';
 
 class Question extends React.Component {
   state = {
@@ -88,8 +90,26 @@ class Question extends React.Component {
     this.setState({ alternatives: altersShuffled, valid: false });
   };
 
-  handleClickAnswers = () => {
+  handleClickAnswers = (event) => {
+    const { questions, score, actAddScore } = this.props;
+    const { id, seconds } = this.state;
     this.setState({ clicked: true });
+    console.log('evento de clique:', event.target.value);
+    console.log('questão correta:', questions[id].correct_answer);
+    console.log('score atual: ', score);
+
+    console.log(questions);
+
+    if (event.target.value === questions[id].correct_answer) {
+      let number = 0;
+      const numberThree = 3;
+      const valorDefault = 10;
+
+      if (questions[id].difficulty === 'hard') { number = numberThree; }
+      if (questions[id].difficulty === 'medium') { number = 2; }
+      if (questions[id].difficulty === 'easy') { number = 1; }
+      actAddScore(valorDefault + (seconds * number));
+    }
   };
 
   answerBorder = (item, question) => ((item === question.correct_answer)
@@ -118,7 +138,8 @@ class Question extends React.Component {
                 className={ clicked
                   ? this.answerBorder(item, questions[id]) : '' }
                 disabled={ clicked || timeout }
-                onClick={ this.handleClickAnswers }
+                onClick={ (event) => this.handleClickAnswers(event) }
+                value={ item }
               >
                 {item}
               </button>
@@ -157,4 +178,12 @@ Question.propTypes = {
   questions: PropTypes.array,
 }.isRequered;
 
-export default Question;
+const mapStateToProps = (state) => ({
+  score: state.player.score,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  actAddScore: (score) => dispatch(addScore(score)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Question);
