@@ -6,7 +6,7 @@ import '../css/answers.css';
 class Question extends React.Component {
   state = {
     id: 0,
-    questions: [],
+    // questions: [],
     alternatives: [],
     timeout: false,
     clicked: false,
@@ -17,17 +17,19 @@ class Question extends React.Component {
 
   componentDidMount() {
     const { questions } = this.props;
+    const { id } = this.state;
     this.tokenValidation();
-    this.shuffleAnswers(questions[0]);
+    this.shuffleAnswers(questions[id]);
     this.timer();
   }
 
   componentDidUpdate() {
-    this.stopTimer();
-    const { id, questions, valid } = this.state;
+    const { id, valid } = this.state;
+    const { questions } = this.props;
     if (valid === true) {
       this.shuffleAnswers(questions[id]);
     }
+    this.stopTimer();
   }
 
   tokenValidation = async () => {
@@ -107,23 +109,19 @@ class Question extends React.Component {
         <div data-testid="answer-options">
           {
             alternatives.map((item, index) => (
-              <div
+              <button
                 key={ index }
+                type="button"
+                data-testid={ (questions[id].correct_answer === item)
+                  ? 'correct-answer'
+                  : `wrong-answer-${index}` }
+                className={ clicked
+                  ? this.answerBorder(item, questions[id]) : '' }
+                disabled={ clicked || timeout }
+                onClick={ this.handleClickAnswers }
               >
-
-                <button
-                  type="button"
-                  data-testid={ (questions[id].correct_answer === item)
-                    ? 'correct-answer'
-                    : `wrong-answer-${index}` }
-                  className={ clicked
-                    ? this.answerBorder(item, questions[id]) : '' }
-                  disabled={ clicked || timeout }
-                  onClick={ this.handleClickAnswers }
-                >
-                  {item}
-                </button>
-              </div>
+                {item}
+              </button>
             ))
           }
         </div>
