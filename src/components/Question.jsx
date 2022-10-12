@@ -69,12 +69,17 @@ class Question extends React.Component {
   };
 
   btnNext = () => {
-    const { history } = this.props;
+    const { history, questions } = this.props;
     const { id } = this.state;
     const limit = 4;
+
+    console.log('btnNext question:', questions[id].category);
+    console.log('btnNext history:', history);
+
     if (id === limit) {
       history.push('/feedback');
     }
+
     this.setState({
       id: id + 1, valid: true, clicked: false, seconds: 30, timeout: false,
     });

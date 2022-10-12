@@ -23,11 +23,12 @@ class Main extends React.Component {
 
   render() {
     const { questions, isLoading } = this.state;
+    const { history } = this.props;
     return (
       (!isLoading)
         ? (
           <main>
-            <Question questions={ questions } />
+            <Question questions={ questions } history={ history } />
           </main>
         )
         : (
