@@ -96,14 +96,9 @@ class Question extends React.Component {
   };
 
   handleClickAnswers = (event) => {
-    const { questions, score, actAddScore } = this.props;
+    const { questions, actAddScore } = this.props;
     const { id, seconds } = this.state;
     this.setState({ clicked: true });
-    console.log('evento de clique:', event.target.value);
-    console.log('questão correta:', questions[id].correct_answer);
-    console.log('score atual: ', score);
-
-    console.log(questions);
 
     if (event.target.value === questions[id].correct_answer) {
       let number = 0;

@@ -1,21 +1,22 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import md5 from 'crypto-js/md5';
+// import md5 from 'crypto-js/md5';
+import createGravatarImage from '../services/getUserAvatar';
 
 class Header extends React.Component {
-  createGravatarImage = () => {
-    const { email } = this.props;
-    const hashGerada = md5(email).toString();
-    return `https://www.gravatar.com/avatar/${hashGerada}`;
-  };
+  // createGravatarImage = () => {
+  //   const { email } = this.props;
+  //   const hashGerada = md5(email).toString();
+  //   return `https://www.gravatar.com/avatar/${hashGerada}`;
+  // };
 
   render() {
-    const { nome, score } = this.props;
+    const { nome, score, email } = this.props;
     return (
       <header>
         <img
-          src={ this.createGravatarImage() }
+          src={ createGravatarImage(email) }
           alt={ nome }
           data-testid="header-profile-picture"
         />
