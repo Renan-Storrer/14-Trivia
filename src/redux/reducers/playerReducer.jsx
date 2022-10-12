@@ -1,4 +1,4 @@
-import { ADD_NAME_EMAIL } from '../actions/actionsTypes';
+import { ADD_NAME_EMAIL, ADD_SCORE } from '../actions/actionsTypes';
 
 const INITIAL_STATE = {
   name: '',
@@ -6,7 +6,7 @@ const INITIAL_STATE = {
   score: 0,
 };
 
-const playerReducer = (state = INITIAL_STATE, action) => {
+const player = (state = INITIAL_STATE, action) => {
   switch (action.type) {
   case ADD_NAME_EMAIL:
     // console.log(action);
@@ -15,9 +15,14 @@ const playerReducer = (state = INITIAL_STATE, action) => {
       name: action.payload.name,
       email: action.payload.email,
     };
+  case ADD_SCORE:
+    return {
+      ...state,
+      score: state.score + action.payload.score,
+    };
   default:
     return state;
   }
 };
 
-export default playerReducer;
+export default player;

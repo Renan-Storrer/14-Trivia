@@ -1,4 +1,4 @@
-import { REQUEST_API, ADD_NAME_EMAIL } from './actionsTypes';
+import { REQUEST_API, ADD_NAME_EMAIL, ADD_SCORE } from './actionsTypes';
 
 export const requestApi = () => async (dispatch) => {
   const url = 'https://opentdb.com/api_token.php?command=request';
@@ -16,5 +16,12 @@ export const addNomeEmail = (nome, email) => ({
   payload: {
     name: nome,
     email,
+  },
+});
+
+export const addScore = (score) => ({
+  type: ADD_SCORE,
+  payload: {
+    score,
   },
 });
