@@ -4,6 +4,7 @@ const INITIAL_STATE = {
   name: '',
   email: '',
   score: 0,
+  hits: 0,
 };
 
 const player = (state = INITIAL_STATE, action) => {
@@ -19,6 +20,7 @@ const player = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       score: state.score + action.payload.score,
+      hits: state.hits + 1,
     };
   default:
     return state;
