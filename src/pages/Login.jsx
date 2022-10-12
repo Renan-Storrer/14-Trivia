@@ -33,14 +33,15 @@ class Login extends React.Component {
     history.push('/settings');
   };
 
-  handleClick = async () => {
+  handleClick = async (event) => {
+    event.preventDefault();
     const { returnToken, history, returnNomeEmail } = this.props;
     const { name, email } = this.state;
     await returnToken();
     const { token } = this.props;
     localStorage.setItem('token', token);
-    history.push('/game');
     returnNomeEmail(name, email);
+    history.push('/game');
 
     const verifyToken = 3;
 
@@ -79,7 +80,7 @@ class Login extends React.Component {
             type="button"
             data-testid="btn-play"
             disabled={ disableBtn }
-            onClick={ this.handleClick }
+            onClick={ (event) => this.handleClick(event) }
           >
             Play
           </button>
