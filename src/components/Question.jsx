@@ -149,6 +149,7 @@ class Question extends React.Component {
         {clicked ? (
           <button
             type="button"
+            data-testid="btn-next"
             onClick={ this.btnNext }
           >
             Next
