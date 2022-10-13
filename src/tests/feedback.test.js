@@ -1,44 +1,68 @@
-import React from "react";
-import { screen } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
-import { renderWithRouterAndRedux } from './helpers/renderWithRouterAndRedux';
+import React from 'react';
+import { act, screen } from '@testing-library/react';
 import App from '../App';
+import renderWithRouterAndRedux from './helpers/renderWithRouterAndRedux'
+import userEvent from '@testing-library/user-event';
 
-describe('Testa funcionamento da tela de feedbacks', () => {
-    test('Verfica funcionalidade do botão ranking', () => {
-    const player = {
-     name: 'RaphaelGRUPO27',
-     gravatarEmail: 'raphaelgrupo27@gmail.com',
-     assertions: 3,
-     score: 127,
-    }
-    renderWithRouterAndRedux(<App />, { player }, '/feedback');
-    const hitQuestions = screen.getByTestId('feedback-total-question');
-    const feedText = screen.getAllByTestId('feedback-text');
-    const btnRank = screen.getByRole('button', {  name: /ranking/i});
-    expect(hitQuestions.innerHTML).toBe("3");
-    expect(feedText[1].innerHTML).toBe("Well Done!");
-    expect(btnRank).toBeInTheDocument();
-    userEvent.click(btnRank);
-    const rankText = screen.getByRole('heading', {  name: /ranking/i});
-    expect(rankText).toBeInTheDocument();
-    })
-    test('Testando Play Again', () => {
-        const player = {
-            name: 'RaphaelGRUPO27',
-            gravatarEmail: 'raphaelgrupo27@gmail.com',
-            assertions: 2,
-            score: 63,
-           }
-        const { history } = renderWithRouterAndRedux(<App />, {player}, '/feedback');
-        const hitQuestions = screen.getByTestId('feedback-total-question');
-        const feedbackText = screen.getAllByTestId('feedback-text');
-        expect(hitQuestions.innerHTML).toBe('2');
-        expect(feedbackText[1].innerHTML).toBe('Could be better...');
-        const btnAgain = screen.getByRole('button', {  name: /play again/i});
-        userEvent.click(btnAgain);
-        const { pathname } = history.location;
-        expect(pathname).toBe('/');
-        })
+const initialState = { player: {
+  name: 'Kananda',
+  assertions: 4,
+  score: 200,
+  gravatarEmail: 'kananda@kananda.com.br'
+}};
 
+describe('Testando página de feedback', () => {
+  test('Testa rota para a página', () => {
+    const { history } = renderWithRouterAndRedux(<App />);
+    act(() => {
+        history.push('/feedback')
+      })
+    expect(history.location.pathname).toBe('/feedback');
+
+  });
+  test('Testa título da página', () => {
+    const { history } = renderWithRouterAndRedux(<App />);
+    act(() => {
+        history.push('/feedback')
+      })
+    const title = screen.getByRole('heading', { name: /feedback/i });
+    expect(title).toBeInTheDocument();
+  });
+  test('Testa imagem de gravatar', () => {
+    const { history } = renderWithRouterAndRedux(<App />);
+    act(() => {
+        history.push('/feedback')
+      })
+    const imgGravatar = screen.getByTestId('header-profile-picture');
+    expect(imgGravatar).toBeInTheDocument();
+  });
+  test('Testa botão Play Again', () => {
+    const { history } = renderWithRouterAndRedux(<App />);
+    act(() => {
+        history.push('/feedback')
+      })
+    const btnPlayAgain = screen.getByRole('button', { name: /play again/i });
+    expect(btnPlayAgain).toBeInTheDocument();
+
+    userEvent.click(btnPlayAgain);
+    expect(history.location.pathname).toBe('/');
+  });
+  test('Testa botão Ranking', () => {
+    const { history } = renderWithRouterAndRedux(<App />);
+    act(() => {
+        history.push('/feedback')
+      })
+    const btnRanking = screen.getByRole('button', { name: /ranking/i });
+    expect(btnRanking).toBeInTheDocument();
+
+    userEvent.click(btnRanking);
+    expect(history.location.pathname).toBe('/ranking');
+  });
+  test('Testa mensagem "Well Done!"', () => {
+    renderWithRouterAndRedux(<App />, initialState , '/feedback');
+    console.log('initial state é', initialState);
+    const msgFeedback = screen.getByRole('heading', { name: /well done!/i });
+    expect(msgFeedback).toBeInTheDocument();
+  });
 })
+
