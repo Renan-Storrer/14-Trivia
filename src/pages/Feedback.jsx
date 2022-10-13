@@ -20,7 +20,8 @@ class Feedback extends React.Component {
   };
 
   handleClickRancking = () => {
-
+    const { history } = this.props;
+    history.push('/ranking');
   };
 
   render() {
