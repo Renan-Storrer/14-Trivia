@@ -14,6 +14,15 @@ class Feedback extends React.Component {
     return <p data-testid="feedback-text">Well Done!</p>;
   };
 
+  handleClickPlayAgain = () => {
+    const { history } = this.props;
+    history.push('/');
+  };
+
+  handleClickRancking = () => {
+
+  };
+
   render() {
     const { name, email, score, assertions } = this.props;
 
@@ -33,9 +42,21 @@ class Feedback extends React.Component {
           {/* <p data-testid="header-score">{score}</p> */}
           <p data-testid="feedback-total-score">{score}</p>
           <p data-testid="feedback-total-question">{assertions}</p>
-          <button type="button" data-testid="btn-play-again" onC>Play Again</button>
+          <button
+            type="button"
+            data-testid="btn-play-again"
+            onClick={ this.handleClickPlayAgain }
+          >
+            Play Again
+          </button>
           <br />
-          <button type="button" data-testid="btn-ranking">Ranking</button>
+          <button
+            type="button"
+            data-testid="btn-ranking"
+            onClick={ this.handleClickRancking }
+          >
+            Ranking
+          </button>
         </main>
       </>
     );
@@ -54,6 +75,7 @@ Feedback.propTypes = {
   score: PropTypes.number,
   email: PropTypes.string,
   assertions: PropTypes.number,
+  history: PropTypes.shape().isRequired,
 };
 
 const mapStateToProps = (state) => ({
