@@ -1,37 +1,44 @@
-import React from 'react';
-import { screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+import React from "react";
+import { screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import { renderWithRouterAndRedux } from './helpers/renderWithRouterAndRedux';
-import Feedback from '../Pages/Feedback';
+import App from '../App';
 
-describe('testes pagina Feedback', () => {
-  test('se os componentes existem:', () => {
-    renderWithRouterAndRedux(<Feedback />);
-    const feedback = screen.getByTestId('feedback-text');
-    const feedbackTotal = screen.getByTestId('feedback-total-question');
-    const feedbackScore = screen.getByTestId('feedback-total-score');
-    const btnPlayAgain = screen.getByTestId('btn-play-again');
-    const btnRanking = screen.getByTestId('btn-ranking');
-    expect(feedback).toBeInTheDocument();
-    expect(feedbackTotal).toBeInTheDocument();
-    expect(feedbackScore).toBeInTheDocument();
-    expect(btnPlayAgain).toBeInTheDocument();
-    expect(btnRanking).toBeInTheDocument();
-  });
-});
-describe('testes botoes pagina Feedback', () => {
-  test('se o botao play Again redireciona:', () => {
-    const { history } = renderWithRouterAndRedux(<Feedback />);
-    const btnPlayAgain = screen.getByTestId('btn-play-again');
-    expect(btnPlayAgain).toBeInTheDocument();
-    userEvent.click(btnPlayAgain);
-    expect(history.location.pathname).toBe('/');
-  });
-  test('se os componentes existem:', () => {
-    const { history } = renderWithRouterAndRedux(<Feedback />);
-    const btnRanking = screen.getByTestId('btn-ranking');
-    expect(btnRanking).toBeInTheDocument();
-    userEvent.click(btnRanking);
-    expect(history.location.pathname).toBe('/ranking');
-  });
-});
+describe('Testa funcionamento da tela de feedbacks', () => {
+    test('Verfica funcionalidade do botão ranking', () => {
+    const player = {
+     name: 'RaphaelGRUPO27',
+     gravatarEmail: 'raphaelgrupo27@gmail.com',
+     assertions: 3,
+     score: 127,
+    }
+    renderWithRouterAndRedux(<App />, { player }, '/feedback');
+    const hitQuestions = screen.getByTestId('feedback-total-question');
+    const feedText = screen.getAllByTestId('feedback-text');
+    const btnRank = screen.getByRole('button', {  name: /ranking/i});
+    expect(hitQuestions.innerHTML).toBe("3");
+    expect(feedText[1].innerHTML).toBe("Well Done!");
+    expect(btnRank).toBeInTheDocument();
+    userEvent.click(btnRank);
+    const rankText = screen.getByRole('heading', {  name: /ranking/i});
+    expect(rankText).toBeInTheDocument();
+    })
+    test('Testando Play Again', () => {
+        const player = {
+            name: 'RaphaelGRUPO27',
+            gravatarEmail: 'raphaelgrupo27@gmail.com',
+            assertions: 2,
+            score: 63,
+           }
+        const { history } = renderWithRouterAndRedux(<App />, {player}, '/feedback');
+        const hitQuestions = screen.getByTestId('feedback-total-question');
+        const feedbackText = screen.getAllByTestId('feedback-text');
+        expect(hitQuestions.innerHTML).toBe('2');
+        expect(feedbackText[1].innerHTML).toBe('Could be better...');
+        const btnAgain = screen.getByRole('button', {  name: /play again/i});
+        userEvent.click(btnAgain);
+        const { pathname } = history.location;
+        expect(pathname).toBe('/');
+        })
+
+})
