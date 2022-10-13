@@ -5,10 +5,10 @@ import renderWithRouterAndRedux from './helpers/renderWithRouterAndRedux'
 import userEvent from '@testing-library/user-event';
 
 const initialState = { player: {
-  name: 'Kananda',
+  name: 'renan',
   assertions: 4,
   score: 200,
-  gravatarEmail: 'kananda@kananda.com.br'
+  gravatarEmail: 'renan@renan.com.br'
 }};
 
 describe('Testando página de feedback', () => {
