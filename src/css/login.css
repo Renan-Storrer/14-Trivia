@@ -1,0 +1,45 @@
+.login-div {
+  align-items: center;
+  background-color: rgb(237 186 124);
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  height: 200px;
+  justify-content: center;
+  margin: 0 auto;
+  position: relative;
+  top: 40%;
+  width: 300px;
+}
+
+input {
+  background-color: #323232be;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  margin-bottom: 5px;
+  padding: 5px;
+}
+
+::placeholder {
+  color: white;
+}
+
+button {
+  background-color: white;
+  border: none;
+  border-radius: 5px;
+  margin: 5px;
+  padding: 8px;
+
+  /* width: 80px; */
+}
+
+button:hover {
+  background-color: #d8d7d7;
+  color: black;
+}
+
+button:disabled {
+  color: #d8d7d7;
+}

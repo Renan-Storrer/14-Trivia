@@ -123,7 +123,7 @@ class Question extends React.Component {
       <div>
         <h2 data-testid="question-category">{ questions[id].category }</h2>
         <p data-testid="question-text">{ questions[id].question }</p>
-        <div>
+        <div className="seconds">
           {seconds}
         </div>
         <div data-testid="answer-options">
