@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import fetchQuestions from '../services/fetchQuestions';
 import { requestApi, addNomeEmail } from '../redux/actions';
 
+import '../css/login.css';
+
 class Login extends React.Component {
   state = {
     name: '',
@@ -60,9 +62,11 @@ class Login extends React.Component {
     return (
       <div
         data-testid="login-div"
+        className="login-div"
       >
         <label htmlFor="name">
           <input
+            className="name"
             type="text"
             name="name"
             placeholder="Nome"
@@ -72,6 +76,7 @@ class Login extends React.Component {
         </label>
         <label htmlFor="email">
           <input
+            className="email"
             type="email"
             name="email"
             placeholder="E-mail"

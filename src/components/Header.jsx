@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 // import md5 from 'crypto-js/md5';
 import createGravatarImage from '../services/getUserAvatar';
+import '../css/header.css';
 
 class Header extends React.Component {
   // createGravatarImage = () => {
